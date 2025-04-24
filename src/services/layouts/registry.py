@@ -19,8 +19,10 @@ class LayoutRegistry:
 
     @classmethod
     def get_layout(cls, line: str) -> Optional[LineLayout]:
-        """Get layout for a specific line"""
-        if not line:
+        """Get layout for a specific line based on its 2-space identifier"""
+        if not line or len(line) < 2:
             return None
-        first_char = line[0].upper()
-        return cls._layouts.get(first_char)
+            
+        # Get first two spaces (whether it's "P " or "M1")
+        identifier = line[:2].rstrip().upper()
+        return cls._layouts.get(identifier)

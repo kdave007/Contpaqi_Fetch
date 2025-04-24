@@ -24,24 +24,36 @@ class LineLayout:
     def parse_line(self, line: str) -> Dict[str, any]:
         """Parse a line according to the defined layout"""
         result = {}
+        line_length = len(line)
+
+        # Process fields in order
         for field in self.fields:
-            if len(line) < field.start_pos + field.length:
-                if field.required:
-                    raise ValueError(f"Line too short for field {field.name}")
+            # Handle fields with negative positions (counting from end)
+            if field.start_pos < 0:
+                if abs(field.start_pos) > line_length:
+                    continue
+                value = line[field.start_pos:field.start_pos + field.length].strip()
+            # Handle fields with positive positions
+            else:
+                if field.start_pos + field.length > line_length:
+                    continue
+                value = line[field.start_pos:field.start_pos + field.length].strip()
+            
+            # Skip empty values
+            if not value:
                 continue
-                
-            value = line[field.start_pos:field.start_pos + field.length].strip()
-            if not value and field.required:
-                raise ValueError(f"Required field {field.name} is empty")
-                
-            if field.field_type == 'int':
-                result[field.name] = int(value) if value else 0
-            elif field.field_type == 'float':
-                result[field.name] = float(value) if value else 0.0
-            elif field.field_type == 'date':
-                result[field.name] = value  # You might want to parse this into a date object
+
+            # Convert numeric values
+            if field.field_type in ('int', 'float'):
+                try:
+                    result[field.name] = float(value) if field.field_type == 'float' else int(value)
+                except ValueError:
+                    continue
             else:
                 result[field.name] = value
+
+
+
         return result
 
 

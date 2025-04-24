@@ -35,3 +35,6 @@ config/credentials.secure.env
 output/
 *.xls
 *.xlsx
+
+pólizas_ING.txt
+prueba_poliza.txt
