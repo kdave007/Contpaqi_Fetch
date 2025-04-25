@@ -1,0 +1,45 @@
+Estructura del archivo CSV de Pólizas Contables
+==========================================
+
+1. Registros de Cabecera (CA)
+----------------------------
+CA,fecha,tipo_pol,folio,clase,id_diario,concepto,sist_orig,impresa,ajuste,guid
+
+Donde:
+- CA: Identificador de registro de cabecera
+- fecha: Fecha de la póliza (YYYYMMDD)
+- tipo_pol: Tipo de póliza
+- folio: Número de folio
+- clase: Clase de póliza
+- id_diario: ID del diario
+- concepto: Descripción o concepto de la póliza
+- sist_orig: Sistema de origen
+- impresa: Estado de impresión
+- ajuste: Indicador de ajuste
+- guid: Identificador único global
+
+2. Registros de Movimientos (CU)
+-------------------------------
+CU,num_partida,id,cuenta,tipo_movto,debe,haber,id_diario,concepto,id_seg_neg,guid,fecha_aplicacion
+
+Donde:
+- CU: Identificador de registro de movimiento
+- num_partida: Número secuencial de la partida en la póliza
+- id: Identificador del tipo de movimiento (M1)
+- cuenta: Número de cuenta contable
+- tipo_movto: Tipo de movimiento
+- debe: Monto del cargo
+- haber: Monto del abono
+- id_diario: ID del diario
+- concepto: Descripción del movimiento
+- id_seg_neg: ID del segmento de negocio
+- guid: Identificador único global del movimiento
+- fecha_aplicacion: Fecha de aplicación del movimiento (YYYYMMDD)
+
+Ejemplo:
+--------
+Cabecera:
+CA,20250328,1,601,1,0,INGRESOS PRECIO VENTA 2 AUTOMOTIVO,8,0.0,0.0,E30806B8-AF43-4FCF-81F5-DD1FC9DC44E6
+
+Movimiento:
+CU,1,M1,1001050004000,0,1.87,0.0,0,IVA 1 Acred pagado Ingresos,1,4B4A22B5-7C37-4319-8E63-53D5A8A5EB46,20250328

@@ -57,33 +57,25 @@ class PolizaController:
                         header_error=str(e)
                     )
             
-            # If we have a current poliza and this is a movement
-            elif current_poliza and parsed_line.clean_line.startswith('M'):
+            # If we have a current poliza and this is any associated layout
+            elif current_poliza and parsed_line.layout:
                 try:
-                    # Parse movement data
-                    movement_data = parsed_line.layout.parse_line(parsed_line.clean_line)
-                    
-                    # Increment movement number
-                    current_movement_num += 1
-                    
-                    # Add movement data directly
-                    current_poliza.add_movement(current_movement_num, {
-                        'id': 'M1',
-                        'cuenta': movement_data.get('cuenta'),
-                        'referencia': movement_data.get('referencia'),
-                        'tipo_movto': movement_data.get('tipo_movto'),
-                        'debe': movement_data.get('debe'),
-                        'haber': movement_data.get('haber'),
-                        'id_diario': movement_data.get('id_diario'),
-                        'concepto': movement_data.get('concepto'),
-                        'id_seg_neg': movement_data.get('id_seg_neg'),
-                        'guid': movement_data.get('guid'),
-                        'fecha_aplicacion': movement_data.get('fecha_aplicacion')
-                    })
+                    # Parse data using whatever layout was detected
+                    parsed_data = parsed_line.layout.parse_line(parsed_line.clean_line)
+                    #only handle movements M1
+                    if parsed_line.clean_line.startswith('M1'):
+                        # Increment part number
+                        current_movement_num += 1
+                        
+                        # Add the parsed data with its identifier
+                        current_poliza.add_movement(current_movement_num, {
+                            'id': parsed_line.clean_line[:2],  # Get actual line identifier (M1, AD, etc)
+                            **parsed_data  # Include all fields from the layout
+                        })
                 except Exception as e:
-                    # Add movement with error
+                    # Add error with actual line identifier
                     current_poliza.add_movement(current_movement_num, {
-                        'id': 'M1',
+                        'id': parsed_line.clean_line[:2],
                         'error': str(e)
                     })
         
