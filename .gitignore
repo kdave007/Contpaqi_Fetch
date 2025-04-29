@@ -40,3 +40,6 @@ pólizas_ING.txt
 prueba_poliza.txt
 output_poliza_short.csv
 output_poliza_completa.csv
+output_poliza_NUEVA.csv
+output_polizas_aux.csv
+cat_cuentas.json

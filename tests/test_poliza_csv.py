@@ -16,7 +16,7 @@ def main():
     controller.parse_file(file_path)
     
     # Write to CSV file
-    output_path = Path(__file__).parent.parent / 'output_poliza_completa.csv'
+    output_path = Path(__file__).parent.parent / 'output_polizas_aux.csv'
     controller.write_csv(output_path)
     
     print(f"\nCSV file written to: {output_path}")

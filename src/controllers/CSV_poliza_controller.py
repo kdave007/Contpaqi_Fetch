@@ -3,6 +3,7 @@ from pathlib import Path
 from typing import Dict, Any
 from services.line_parser import LineParser
 from services.layouts import registry
+from services.load_json import AccountsManager
 
 class CSVPolizaController:
     def __init__(self):
@@ -66,6 +67,14 @@ class CSVPolizaController:
                     body_row.append(current_movement_num)
                     for field in parsed_line.layout.fields:
                         body_row.append(movement_data.get(field.name, '0' if field.field_type in ('int', 'float') else ''))
+                    
+                    # Add account lookup values - adjust the field name as needed
+                    account = AccountsManager.get_account(movement_data.get('cuenta', ''))
+                    if account:
+                        body_row.append(account['main'])
+                        body_row.append(account['aux'])
+                    else:
+                        body_row.extend(['NA', 'NA'])  # Add empty values if account not found
 
                     self.output_rows.append(body_row)
 
