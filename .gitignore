@@ -43,3 +43,9 @@ output_poliza_completa.csv
 output_poliza_NUEVA.csv
 output_polizas_aux.csv
 cat_cuentas.json
+pólizas_ING.txt
+completa.csv
+incompleta.csv
+pólizas_check.txt
+pólizas_ING_fixed.txt
+filtered_polizas.csv
