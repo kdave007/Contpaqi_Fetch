@@ -1,7 +1,7 @@
-from services.line_parser import LineParser
-from services.layouts import registry
+from src.services.line_parser import LineParser
+from src.services.layouts import registry
 from pathlib import Path
-from services.load_json import AccountsManager
+from src.services.load_json import AccountsManager
 
 class PolizaFilter:
     def __init__(self, path):

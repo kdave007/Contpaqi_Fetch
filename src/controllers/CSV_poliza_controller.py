@@ -1,9 +1,9 @@
 from ast import parse
 from pathlib import Path
 from typing import Dict, Any
-from services.line_parser import LineParser
-from services.layouts import registry
-from services.load_json import AccountsManager
+from src.services.line_parser import LineParser
+from src.services.layouts import registry
+from src.services.load_json import AccountsManager
 
 class CSVPolizaController:
     def __init__(self):

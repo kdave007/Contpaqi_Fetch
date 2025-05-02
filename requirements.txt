@@ -1,0 +1,14 @@
+# Development dependencies
+pyinstaller==6.12.0  # For creating executable
+
+# Runtime dependencies
+# Note: Most dependencies are from Python standard library
+# pathlib
+# sys
+# datetime
+# csv
+# json
+# os
+# typing
+# dataclasses
+# ast
